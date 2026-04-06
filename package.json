@@ -1,0 +1,18 @@
+{
+   "name": "ironlog",
+   "version": "1.0.0",
+   "description": "personal tracker for gym progress, featuring 3 different days of a PPL program",
+   "scripts": {
+      "start": "parcel index.html",
+      "build": "parcel build index.html --dist-dir ./dist"
+   },
+   "author": "Ilya Turchenko",
+   "license": "ISC",
+   "dependencies": {
+      "core-js": "^3.49.0",
+      "regenerator-runtime": "^0.14.1"
+   },
+   "devDependencies": {
+      "parcel": "^2.16.4"
+   }
+}

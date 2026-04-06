@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="stylesheet" href="src/style.css">
+      <script src="src/js/controller.js" type="module"></script>
+      <title>IronLog</title>
+   </head>
+   <body>
+      <header>
+         <nav class="nav">
+            <ul class="nav__list">
+               <li><a class="nav__list-link" href="#">Log</a></li>
+               <li><a class="nav__list-link" href="#">Calendar</a></li>
+               <li><a class="nav__list-link" href="#">Exercises</a></li>
+            </ul>
+         </nav>
+      </header>
+      <main>
+         <section class="plan-day-picker">
+            <ul class="plan-day-picker__list">
+               <li><button class="plan-day-picker__list-button">PP1</button></li>
+               <li><button class="plan-day-picker__list-button">Legs</button></li>
+               <li><button class="plan-day-picker__list-button">PP2</button></li>
+            </ul>
+         </section>
+         <section class="tracker-section">
+            <form class="tracker">
+               <div class="input-group">
+                  <p class="tracker__exercise-title">Dumbell Bench Press</p>
+                  <label for="dumbell_bench_press_reps">reps</label>
+                  <input type="number" name="dumbell_bench_press_reps" id="dumbell_bench_press" />
+                  <label for="dumbell_bench_press_weight">weight</label>
+                  <input type="number" name="dumbell_bench_press_weight" id="dumbell_bench_press" step="5" />
+               </div>
+            </form>
+         </section>
+      </main>
+   </body>
+</html>
