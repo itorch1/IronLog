@@ -1,13 +1,183 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+:root {
+   --color-primary: #e03131;
+   --color-primary-hover: #c92a2a;
+
+   --color-grey: #212529;
+}
+
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
 }
 
 html {
-    font-size: 56.25%;
+   font-size: 62.5%;
 }
 
 body {
-    font-family: serif;
+   font-family: 'Montserrat', sans-serif;
+   background-color: var(--color-grey);
+   color: #fff;
+}
+
+ul {
+   list-style: none;
+}
+
+a:link,
+a,
+:visited {
+   text-decoration: none;
+}
+
+button {
+   background: none;
+   border: none;
+   cursor: pointer;
+}
+
+.container {
+   padding: 0 2.4rem;
+}
+
+/**************************/
+/* NAV */
+/**************************/
+.nav {
+   background-color: var(--color-primary);
+   padding: 1.2rem 2.4rem;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.logo {
+   width: 4.8rem;
+}
+
+.logo__img {
+   width: 100%;
+}
+
+.nav__list {
+   display: flex;
+}
+
+.nav__list-link:link,
+.nav__list-link:visited {
+   color: #fff;
+   font-size: 2.4rem;
+   font-weight: 600;
+   padding: 1.2rem 2.4rem;
+}
+
+.nav__list-link:hover,
+.nav__list-link:active {
+   background-color: var(--color-primary-hover);
+}
+
+.nav__btn {
+   height: 3.2rem;
+   width: 3.2rem;
+}
+
+.nav__btn ion-icon {
+   width: 100%;
+   height: 100%;
+   color: #fff;
+}
+
+/**************************/
+/* PLAN DAY PICKER */
+/**************************/
+.plan-day-picker {
+   height: calc(100vh - 75px);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.plan-day-picker__list {
+   padding: 3rem 0;
+   width: 100%;
+   display: flex;
+   flex-direction: column;
+   align-items: stretch;
+   gap: 2.4rem;
+}
+
+.plan-day-picker__list-button {
+   font-size: 2.8rem;
+   color: #fff;
+   background-color: var(--color-primary);
+   width: 100%;
+   padding: 1.2rem 0;
+}
+
+/**************************/
+/* TRACKER */
+/**************************/
+.tracker-section {
+   padding-top: 4.8rem;
+}
+
+.tracker__exercise {
+   display: flex;
+   flex-direction: column;
+   gap: 0.8rem;
+}
+
+.tracker__exercise-title-group {
+   display: flex;
+   align-items: center;
+   gap: 0.8rem;
+}
+
+.tracker__btn--exercise-menu {
+   background-color: var(--color-primary);
+   color: #fff;
+   padding: 0.4rem 0.8rem;
+}
+
+.tracker__exercise-title {
+   font-size: 1.2rem;
+   margin-right: 1.2rem;
+}
+
+.tracker__exercise-details {
+   display: flex;
+   gap: 3.2rem;
+}
+
+.tracker__exercise-details-input-group {
+   display: flex;
+   align-items: center;
+   gap: 0.8rem;
+}
+
+.tracker__exercise input {
+   width: 5rem;
+}
+
+.tracker__btn--next {
+   display: block;
+   margin: 2rem auto;
+   background-color: var(--color-primary);
+   width: 2.8rem;
+   height: 2.8rem;
+   border-radius: 50%;
+}
+
+.tracker__btn--next ion-icon {
+   color: #fff;
+   width: 75%;
+   height: 75%;
+}
+
+/**************************/
+/* Utils */
+/**************************/
+.hidden {
+   display: none;
 }

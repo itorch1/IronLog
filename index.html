@@ -3,14 +3,28 @@
    <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="stylesheet" href="src/style.css">
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link
+         href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+         rel="stylesheet"
+      />
+      <link rel="stylesheet" href="src/style.css" />
+      <link rel="shortcut icon" href="src/img/logo.png" type="image/x-icon" />
+      <script type="module" src="https://unpkg.com/ionicons@7/dist/ionicons/ionicons.esm.js"></script>
       <script src="src/js/controller.js" type="module"></script>
       <title>IronLog</title>
    </head>
    <body>
       <header>
          <nav class="nav">
-            <ul class="nav__list">
+            <div class="logo">
+               <img src="src/img/logo.png" alt="IronLog logo" class="logo__img" />
+            </div>
+            <button class="nav__btn">
+               <ion-icon name="menu"></ion-icon>
+            </button>
+            <ul class="nav__list hidden">
                <li><a class="nav__list-link" href="#">Log</a></li>
                <li><a class="nav__list-link" href="#">Calendar</a></li>
                <li><a class="nav__list-link" href="#">Exercises</a></li>
@@ -18,24 +32,39 @@
          </nav>
       </header>
       <main>
-         <section class="plan-day-picker">
-            <ul class="plan-day-picker__list">
-               <li><button class="plan-day-picker__list-button">PP1</button></li>
-               <li><button class="plan-day-picker__list-button">Legs</button></li>
-               <li><button class="plan-day-picker__list-button">PP2</button></li>
-            </ul>
-         </section>
-         <section class="tracker-section">
-            <form class="tracker">
-               <div class="input-group">
-                  <p class="tracker__exercise-title">Dumbell Bench Press</p>
-                  <label for="dumbell_bench_press_reps">reps</label>
-                  <input type="number" name="dumbell_bench_press_reps" id="dumbell_bench_press" />
-                  <label for="dumbell_bench_press_weight">weight</label>
-                  <input type="number" name="dumbell_bench_press_weight" id="dumbell_bench_press" step="5" />
-               </div>
-            </form>
-         </section>
+         <div class="container">
+            <section class="plan-day-picker hidden">
+               <ul class="plan-day-picker__list">
+                  <li><button class="plan-day-picker__list-button">PP1</button></li>
+                  <li><button class="plan-day-picker__list-button">Legs</button></li>
+                  <li><button class="plan-day-picker__list-button">PP2</button></li>
+               </ul>
+            </section>
+            <section class="tracker-section">
+               <form class="tracker">
+                  <div class="tracker__exercise">
+                     <div class="tracker__exercise-title-group">
+                        <p class="tracker__exercise-title">Dumbell Bench Press</p>
+                        <button type="button" class="tracker__btn--exercise-menu">Superset</button>
+                        <button type="button" class="tracker__btn--exercise-menu">Variations</button>
+                     </div>
+                     <div class="tracker__exercise-details">
+                        <div class="tracker__exercise-details-input-group">
+                           <label for="dumbell_bench_press_weight">weight</label>
+                           <input type="number" name="dumbell_bench_press_weight" id="dumbell_bench_press" step="5" />
+                        </div>
+                        <div class="tracker__exercise-details-input-group">
+                           <label for="dumbell_bench_press_reps">reps</label>
+                           <input type="number" name="dumbell_bench_press_reps" id="dumbell_bench_press" />
+                        </div>
+                     </div>
+                  </div>
+                  <button type="button" class="tracker__btn--next">
+                     <ion-icon name="add"></ion-icon>
+                  </button>
+               </form>
+            </section>
+         </div>
       </main>
    </body>
 </html>
