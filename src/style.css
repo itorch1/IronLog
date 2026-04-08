@@ -119,18 +119,23 @@ button {
 /* TRACKER */
 /**************************/
 .tracker-section {
-   padding-top: 4.8rem;
+   margin-top: 2.4rem;
+}
+
+.tracker-body {
+   display: grid;
+   grid-template-columns: repeat(2, 1fr);
+   gap: 3.2rem;
+   padding-top: 1.6rem;
+}
+
+.tracker__btns-exercise-options {
+   text-align: right;
 }
 
 .tracker__exercise {
    display: flex;
    flex-direction: column;
-   gap: 0.8rem;
-}
-
-.tracker__exercise-title-group {
-   display: flex;
-   align-items: center;
    gap: 0.8rem;
 }
 
@@ -142,42 +147,59 @@ button {
 
 .tracker__exercise-title {
    font-size: 1.2rem;
-   margin-right: 1.2rem;
 }
 
 .tracker__exercise-details {
-   display: flex;
-   gap: 3.2rem;
-}
-
-.tracker__exercise-details-input-group {
-   display: flex;
-   align-items: center;
+   display: grid;
+   grid-template-columns: repeat(2, 1fr);
    gap: 0.8rem;
 }
 
 .tracker__exercise input {
-   width: 5rem;
+   width: 100%;
 }
 
-.tracker__btn--next {
-   display: block;
-   margin: 2rem auto;
+.tracker__btn--next-set {
+   display: flex;
+   align-items: center;
+   justify-content: center;
    background-color: var(--color-primary);
    width: 2.8rem;
    height: 2.8rem;
    border-radius: 50%;
+   margin: 0.8rem 0;
 }
 
-.tracker__btn--next ion-icon {
+.tracker__btn--next-set ion-icon {
    color: #fff;
    width: 75%;
    height: 75%;
+}
+
+.tracker__btn--next-exercise, .tracker__btn--submit {
+   background-color: var(--color-primary);
+   color: #fff;
+   width: 100%;
+   padding: 0.4rem 0;
+   margin: 0.8rem 0;
 }
 
 /**************************/
 /* Utils */
 /**************************/
 .hidden {
-   display: none;
+   opacity: 0;
+   pointer-events: none;
+   visibility: hidden;
+}
+
+.sr-only {
+   position: absolute;
+   width: 1px;
+   height: 1px;
+   padding: 0;
+   margin: -1px;
+   overflow: hidden;
+   clip: rect(0, 0, 0, 0);
+   border: 0;
 }

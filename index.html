@@ -24,46 +24,58 @@
             <button class="nav__btn">
                <ion-icon name="menu"></ion-icon>
             </button>
-            <ul class="nav__list hidden">
+            <!-- <ul class="nav__list">
                <li><a class="nav__list-link" href="#">Log</a></li>
                <li><a class="nav__list-link" href="#">Calendar</a></li>
                <li><a class="nav__list-link" href="#">Exercises</a></li>
-            </ul>
+            </ul> -->
          </nav>
       </header>
       <main>
          <div class="container">
-            <section class="plan-day-picker hidden">
+            <section class="plan-day-picker">
                <ul class="plan-day-picker__list">
-                  <li><button class="plan-day-picker__list-button">PP1</button></li>
-                  <li><button class="plan-day-picker__list-button">Legs</button></li>
-                  <li><button class="plan-day-picker__list-button">PP2</button></li>
+                  <li><button class="plan-day-picker__list-button" data-day="PP1">PP1</button></li>
+                  <li><button class="plan-day-picker__list-button" data-day="L">Legs</button></li>
+                  <li><button class="plan-day-picker__list-button" data-day="PP2">PP2</button></li>
                </ul>
             </section>
-            <section class="tracker-section">
+            <!-- <section class="tracker-section">
                <form class="tracker">
-                  <div class="tracker__exercise">
-                     <div class="tracker__exercise-title-group">
+                  <div class="tracker__btns-exercise-options">
+                     <button type="button" class="tracker__btn--exercise-menu">Superset</button>
+                     <button type="button" class="tracker__btn--exercise-menu">Variations</button>
+                  </div>
+
+                  <div class="tracker-body">
+                     <div class="tracker__exercise">
                         <p class="tracker__exercise-title">Dumbell Bench Press</p>
-                        <button type="button" class="tracker__btn--exercise-menu">Superset</button>
-                        <button type="button" class="tracker__btn--exercise-menu">Variations</button>
-                     </div>
-                     <div class="tracker__exercise-details">
-                        <div class="tracker__exercise-details-input-group">
-                           <label for="dumbell_bench_press_weight">weight</label>
-                           <input type="number" name="dumbell_bench_press_weight" id="dumbell_bench_press" step="5" />
-                        </div>
-                        <div class="tracker__exercise-details-input-group">
-                           <label for="dumbell_bench_press_reps">reps</label>
-                           <input type="number" name="dumbell_bench_press_reps" id="dumbell_bench_press" />
+                        <div class="tracker__exercise-details">
+                           <p>weight</p>
+                           <p>reps</p>
+                           <div>
+                              <label for="dumbell_bench_press_weight" class="sr-only">weight</label>
+                              <input
+                                 type="number"
+                                 name="dumbell_bench_press_weight"
+                                 id="dumbell_bench_press"
+                                 step="5"
+                              />
+                           </div>
+                           <div>
+                              <label for="dumbell_bench_press_reps" class="sr-only">reps</label>
+                              <input type="number" name="dumbell_bench_press_reps" id="dumbell_bench_press" />
+                           </div>
                         </div>
                      </div>
                   </div>
-                  <button type="button" class="tracker__btn--next">
+
+                  <button type="button" class="tracker__btn--next-set">
                      <ion-icon name="add"></ion-icon>
                   </button>
+                  <button type="button" class="tracker__btn--next-exercise">Next exercise</button>
                </form>
-            </section>
+            </section> -->
          </div>
       </main>
    </body>
