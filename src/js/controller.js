@@ -7,13 +7,14 @@ import trackerView from './views/trackerView';
 
 const controlPickDay = function (pickedDay) {
    model.state.formState.pickedDay = pickedDay;
-   trackerView.render(model.state);
-   model.state.formState.currentSet += 2;
+
+   setupExercise();
    model.state.startTimestamp = Date.now();
 };
 
 const controlAddSet = function () {
    model.state.formState.currentSet++;
+   console.log(model.state.formState.currentSet);
    trackerView.renderNextSet();
 };
 
@@ -23,8 +24,12 @@ const controlSuperset = function () {
 
    const { currentExercise } = model.state.formState;
    const planDay = model.state.plans[model.state.formState.pickedDay];
-   if (currentExercise + 1 === planDay.length - 1) trackerView.addSubmitBtn();
+   if (currentExercise + 1 === planDay.length - 1) trackerView.addSubmitBtnAndNotes();
 };
+
+const controlSwap = function() {
+   
+}
 
 const controlNextExercise = function () {
    // Save completed exercises data
@@ -35,12 +40,12 @@ const controlNextExercise = function () {
    model.setNextExerciseData();
 
    // Render next exercise
-   trackerView.render(model.state);
+   setupExercise();
 
    // If last exercise, remove next exercise button and add submit button
    const { currentExercise } = model.state.formState;
    const planDay = model.state.plans[model.state.formState.pickedDay];
-   if (currentExercise === planDay.length - 1) trackerView.addSubmitBtn();
+   if (currentExercise === planDay.length - 1) trackerView.addSubmitBtnAndNotes();
 };
 
 const controlSubmit = function (formData) {
@@ -48,17 +53,34 @@ const controlSubmit = function (formData) {
 
    // Calculate time
    const finishTimestamp = Date.now();
-   const startTime = new Date(model.state.startTimestamp).toLocaleString();
-   const finishTime = new Date(finishTimestamp).toLocaleString();
+   const startTime = new Date(model.state.startTimestamp).toLocaleTimeString();
+   const finishTime = new Date(finishTimestamp).toLocaleTimeString();
+   const date = new Date(finishTimestamp).toISOString();
 
    const diffInMs = finishTimestamp - model.state.startTimestamp;
    const hours = Math.floor(diffInMs / (1000 * 60 * 60));
    const minutes = Math.floor((diffInMs % (1000 * 60 * 60)) / (1000 * 60));
-   const seconds = Math.floor((diffInMs % (1000 * 60)) / 1000);
-   const workoutDuration = `${hours}:${minutes}:${seconds}`;
+   const workoutDuration = `${hours}hr ${minutes}min`;
 
-   const sessionData = { ...formData, startTime, finishTime, workoutDuration };
-   console.log(sessionData)
+   // Save session
+   const sessionData = {
+      workoutData: { ...model.state.formState.data },
+      startTime,
+      finishTime,
+      date,
+      workoutDuration,
+      type: model.state.formState.pickedDay,
+   };
+   console.log(sessionData);
+   model.saveSession(sessionData);
+
+   trackerView.renderMessage();
+};
+
+const setupExercise = function () {
+   const previousWorkout = model.state.workouts.findLast(workout => workout.type === model.state.formState.pickedDay);
+   trackerView.render({ ...model.state, previousWorkout });
+   model.state.formState.currentSet += 2;
 };
 
 const init = function () {

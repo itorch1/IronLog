@@ -1,7 +1,7 @@
 export const state = {
    plans: {
       PP1: [
-         { id: 'dumbell_bench_press', variations: ['incline'], canCombine: true },
+         { id: 'dumbell_bench_press', variations: ['incline_dumbell_bench_press'], canCombine: true },
          { id: 'incline_dumbell_rows' },
          { id: 'chest_flies', canCombine: true },
          { id: 'reverse_flies' },
@@ -9,7 +9,7 @@ export const state = {
          { id: 'hanging_leg_raises', optional: true },
       ],
       L: [
-         { id: 'smith_squats', variations: ['bar_squats'] },
+         { id: 'smith_squats', variations: ['barbell_squats'] },
          { id: 'hamstring_curls', canCombine: true },
          { id: 'quads_extensions' },
          { id: 'press_calf_raises', variations: ['standing_calf_raises'] },
@@ -21,7 +21,7 @@ export const state = {
          { id: 'straight_arm_lat_pulldowns', canCombine: true },
          { id: 'cable_crunches', optional: true },
          { id: 'dumbell_lateral_raises', canCombine: true },
-         { id: 'skullcrushers' },
+         { id: 'skullcrushers', variations: ['overhead_rope_extensions'] },
       ],
    },
    formState: {
@@ -45,5 +45,20 @@ export const setNextExerciseData = function () {
 
 export const updateFormData = function (exerciseData) {
    state.formState.data = { ...exerciseData, ...state.formState.data };
-   console.log(state.formState.data);
 };
+
+export const saveSession = function (sessionData) {
+   state.workouts.push(sessionData);
+   localStorage.setItem('workouts', JSON.stringify(state.workouts));
+};
+
+const getWorkouts = function () {
+   const workouts = JSON.parse(localStorage.getItem('workouts'));
+   if (workouts) state.workouts = workouts;
+};
+
+const init = function () {
+   getWorkouts();
+};
+
+init();

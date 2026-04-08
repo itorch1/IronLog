@@ -28,7 +28,6 @@ export class View {
    renderMessage(message = this._message) {
       const html = `
         <div class="message">
-            <ion-icon name="happy"></ion-icon>
             <p>${message}</p>
         </div>
       `;

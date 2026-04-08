@@ -2,6 +2,7 @@ import { View } from './view';
 
 class TrackerView extends View {
    _parentElement = document.querySelector('.container');
+   _message = 'Great job! 💪';
 
    addHandlerClick(handler, className) {
       this._parentElement.addEventListener('click', function (e) {
@@ -52,15 +53,15 @@ class TrackerView extends View {
       trackerBodyContainer.insertAdjacentHTML('beforeend', markup);
    }
 
-   addSubmitBtn() {
+   addSubmitBtnAndNotes() {
       const form = document.querySelector('.tracker');
 
       form.lastElementChild.remove();
-
-      const submitBtn = document.createElement('button');
-      submitBtn.textContent = 'Finish Workout'
-      submitBtn.classList.add('tracker__btn--submit');
-      form.insertAdjacentElement('beforeend', submitBtn);
+      const markup = `
+         <textarea class="tracker__notes" name="notes" placeholder="Session notes"></textarea>
+         <button class="tracker__btn--submit">Finish Workout</button>
+      `;
+      form.insertAdjacentHTML('beforeend', markup);
    }
 
    _generateMarkup() {
@@ -72,7 +73,9 @@ class TrackerView extends View {
          <form class="tracker">
             <div class="tracker__btns-exercise-options">
                ${planDay[currentExercise].canCombine ? '<button type="button" class="tracker__btn--exercise-menu tracker__btn--superset">Superset</button>' : ''}
-               ${planDay[currentExercise].variations ? '<button type="button" class="tracker__btn--exercise-menu tracker__btn--variations">Variations</button>' : ''}
+               ${planDay[currentExercise].variations || (this._data.formState.isSuperset && planDay[currentExercise + 1].variations) ? '<button type="button" class="tracker__btn--exercise-menu tracker__btn--variations">Variations</button>' : ''}
+               <div class="variations-menu">
+               </div>
             </div>
 
             <div class="tracker-body">
@@ -115,6 +118,7 @@ class TrackerView extends View {
    _generateMarkupSet(currentExercise, currentSet) {
       const planDay = this._data.plans[this._data.formState.pickedDay];
       const i = currentExercise;
+      const workoutData = this._data.previousWorkout?.workoutData;
 
       return `
         <div>
@@ -124,12 +128,12 @@ class TrackerView extends View {
                name="${planDay[i].id}_weight_${currentSet}"
                id="${planDay[i].id}_weight_${currentSet}"
                step="5"
-               value="5"
+               value="${workoutData?.[`${planDay[i].id}_weight_${currentSet}`] || 5}"
             />
          </div>
          <div>
             <label for="${planDay[i].id}_reps_${currentSet}" class="sr-only">reps</label>
-            <input type="number" name="${planDay[i].id}_rep_${currentSet}" id="${planDay[i].id}_reps_${currentSet}" value="3" />
+            <input type="number" name="${planDay[i].id}_reps_${currentSet}" id="${planDay[i].id}_reps_${currentSet}" value="${workoutData?.[`${planDay[i].id}_reps_${currentSet}`] || 3}" step="any" />
          </div>
     `;
    }
