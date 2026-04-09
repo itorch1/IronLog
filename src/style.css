@@ -162,6 +162,11 @@ button {
 .tracker__btn--variations:hover + .variations-menu {
    display: block;
    background-color: var(--color-primary);
+   padding: 0.4rem 0.8rem;
+}
+
+.variations-option {
+   color: #fff;
 }
 
 .tracker__exercise-title {

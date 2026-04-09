@@ -1,6 +1,14 @@
 export class View {
    _data;
 
+   addHandlerClick(handler, className, data = undefined) {
+      this._parentElement.addEventListener('click', function (e) {
+         const btn = e.target.closest(`.${className}`);
+         if (!btn) return;
+         data ? handler(btn.dataset[data]) : handler();
+      });
+   }
+
    render(data) {
       if (!data || (Array.isArray(data) && data.length === 0)) return this.renderError();
       this._data = data;

@@ -3,14 +3,7 @@ import { View } from './view';
 class TrackerView extends View {
    _parentElement = document.querySelector('.container');
    _message = 'Great job! 💪';
-
-   addHandlerClick(handler, className) {
-      this._parentElement.addEventListener('click', function (e) {
-         const btn = e.target.closest(`.${className}`);
-         if (!btn) return;
-         handler();
-      });
-   }
+   _planDay;
 
    addHandlerSubmit(handler) {
       this._parentElement.addEventListener('submit', function (e) {
@@ -40,17 +33,45 @@ class TrackerView extends View {
       exerciseDetailsContainers.forEach(container => container.insertAdjacentHTML('beforeend', markup));
    }
 
-   renderExercise() {
-      const { isSuperset, currentExercise } = this._data.formState;
-
-      const trackerBodyContainer = document.querySelector('.tracker-body');
+   hideSupersetBtn() {
       const supersetBtn = document.querySelector('.tracker__btn--superset');
+      supersetBtn.classList.add('hidden');
+   }
 
-      if (!isSuperset) trackerBodyContainer.innerHTML = '';
-      if (isSuperset) supersetBtn.classList.add('hidden');
+   // renderExercise() {
+   //    const { isSuperset, currentExercise } = this._data.formState;
 
-      const markup = this._generateMarkupExercise(isSuperset ? currentExercise + 1 : currentExercise);
-      trackerBodyContainer.insertAdjacentHTML('beforeend', markup);
+   //    const trackerBodyContainer = document.querySelector('.tracker-body');
+
+   //    if (!isSuperset) trackerBodyContainer.innerHTML = '';
+   //    if (isSuperset) supersetBtn.classList.add('hidden');
+
+   //    const markup = this._generateMarkupExercise(isSuperset ? currentExercise + 1 : currentExercise);
+   //    trackerBodyContainer.insertAdjacentHTML('beforeend', markup);
+   // }
+
+   _renderVariationsBtn() {
+      const { currentExercise } = this._data.formState;
+      const variations = [
+         this._planDay[currentExercise]?.variations,
+         this._data.formState.isSuperset ? this._planDay[currentExercise + 1]?.variations : null,
+      ]
+         .flat()
+         .filter(Boolean);
+
+      if (variations.length === 0) return '';
+
+      return `
+         <button type="button" class="tracker__btn--exercise-menu tracker__btn--variations">Variations</button>
+         <ul class="variations-menu">
+            ${variations
+               .map(
+                  variation => `
+                  <li><button class="variations-option" data-title="${variation}" type="button">${this._convertToTitle(variation)}</button></li>
+               `,
+               )
+               .join('')}
+         </ul>`;
    }
 
    addSubmitBtnAndNotes() {
@@ -64,22 +85,29 @@ class TrackerView extends View {
       form.insertAdjacentHTML('beforeend', markup);
    }
 
+   _convertToTitle = id =>
+      id
+         .split('_')
+         .map(word => `${word[0].toUpperCase()}${word.slice(1)}`)
+         .join(' ');
+
+   _renderVariationsMenu() {}
+
    _generateMarkup() {
-      const planDay = this._data.plans[this._data.formState.pickedDay];
+      this._planDay = this._data.plans[this._data.formState.pickedDay];
       const { currentSet, currentExercise } = this._data.formState;
 
       return `
       <section class="tracker-section">
          <form class="tracker">
             <div class="tracker__btns-exercise-options">
-               ${planDay[currentExercise].canCombine ? '<button type="button" class="tracker__btn--exercise-menu tracker__btn--superset">Superset</button>' : ''}
-               ${planDay[currentExercise].variations || (this._data.formState.isSuperset && planDay[currentExercise + 1].variations) ? '<button type="button" class="tracker__btn--exercise-menu tracker__btn--variations">Variations</button>' : ''}
-               <div class="variations-menu">
-               </div>
+               ${this._planDay[currentExercise].canCombine ? '<button type="button" class="tracker__btn--exercise-menu tracker__btn--superset">Superset</button>' : ''}
+               ${this._renderVariationsBtn()}
             </div>
 
             <div class="tracker-body">
                ${this._generateMarkupExercise(currentExercise, currentSet)}
+               ${this._data.formState.isSuperset ? this._generateMarkupExercise(currentExercise + 1, currentSet) : ''}
             </div>
 
             <button type="button" class="tracker__btn--next-set">
@@ -92,18 +120,11 @@ class TrackerView extends View {
    }
 
    _generateMarkupExercise(currentExercise) {
-      const convertToTitle = id =>
-         id
-            .split('_')
-            .map(word => `${word[0].toUpperCase()}${word.slice(1)}`)
-            .join(' ');
-
-      const planDay = this._data.plans[this._data.formState.pickedDay];
       const { currentSet } = this._data.formState;
 
       return `
          <div class="tracker__exercise">
-            <p class="tracker__exercise-title">${convertToTitle(planDay[currentExercise].id)}</p>
+            <p class="tracker__exercise-title">${this._convertToTitle(this._planDay[currentExercise].id)}</p>
             <div class="tracker__exercise-details">
                <p>weight</p>
                <p>reps</p>

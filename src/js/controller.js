@@ -20,16 +20,29 @@ const controlAddSet = function () {
 
 const controlSuperset = function () {
    model.state.formState.isSuperset = true;
-   trackerView.renderExercise();
+   setupExercise();
 
    const { currentExercise } = model.state.formState;
    const planDay = model.state.plans[model.state.formState.pickedDay];
    if (currentExercise + 1 === planDay.length - 1) trackerView.addSubmitBtnAndNotes();
 };
 
-const controlSwap = function() {
-   
-}
+const controlSwap = function (altExercise) {
+   const { formState, plans } = model.state;
+
+   // Swap main exercise and variation
+   const isSwappingSupersetExercise =
+      formState.isSuperset && plans[formState.pickedDay][formState.currentExercise + 1].variations?.[0] === altExercise;
+   const index = isSwappingSupersetExercise ? formState.currentExercise + 1 : formState.currentExercise;
+
+   const swap = plans[formState.pickedDay][index].id;
+   plans[formState.pickedDay][index].id = altExercise;
+
+   const swapIndex = plans[formState.pickedDay][index].variations.findIndex(variation => variation === altExercise);
+   plans[formState.pickedDay][index].variations[swapIndex] = swap;
+
+   setupExercise(false);
+};
 
 const controlNextExercise = function () {
    // Save completed exercises data
@@ -77,18 +90,20 @@ const controlSubmit = function (formData) {
    trackerView.renderMessage();
 };
 
-const setupExercise = function () {
+const setupExercise = function (increaseSet = true) {
    const previousWorkout = model.state.workouts.findLast(workout => workout.type === model.state.formState.pickedDay);
    trackerView.render({ ...model.state, previousWorkout });
-   model.state.formState.currentSet += 2;
+   if (model.state.formState.isSuperset) trackerView.hideSupersetBtn();
+   if (increaseSet) model.state.formState.currentSet += 2;
 };
 
 const init = function () {
-   pickDayView.addHandlerPickDay(controlPickDay);
+   pickDayView.addHandlerClick(controlPickDay, 'plan-day-picker__list-button', 'day');
 
    trackerView.addHandlerClick(controlSuperset, 'tracker__btn--superset');
    trackerView.addHandlerClick(controlAddSet, 'tracker__btn--next-set');
    trackerView.addHandlerClick(controlNextExercise, 'tracker__btn--next-exercise');
+   trackerView.addHandlerClick(controlSwap, 'variations-option', 'title');
 
    trackerView.addHandlerSubmit(controlSubmit);
 };

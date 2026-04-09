@@ -1,7 +1,7 @@
 export const state = {
    plans: {
       PP1: [
-         { id: 'dumbell_bench_press', variations: ['incline_dumbell_bench_press'], canCombine: true },
+         { id: 'dumbell_bench_press', variations: ['incline'], canCombine: true },
          { id: 'incline_dumbell_rows' },
          { id: 'chest_flies', canCombine: true },
          { id: 'reverse_flies' },
@@ -21,7 +21,7 @@ export const state = {
          { id: 'straight_arm_lat_pulldowns', canCombine: true },
          { id: 'cable_crunches', optional: true },
          { id: 'dumbell_lateral_raises', canCombine: true },
-         { id: 'skullcrushers', variations: ['overhead_rope_extensions'] },
+         { id: 'skullcrushers', variations: ['overhead_rope'] },
       ],
    },
    formState: {
