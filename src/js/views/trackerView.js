@@ -126,8 +126,8 @@ class TrackerView extends View {
          <div class="tracker__exercise">
             <p class="tracker__exercise-title">${this._convertToTitle(this._planDay[currentExercise].id)}</p>
             <div class="tracker__exercise-details">
-               <p>weight</p>
-               <p>reps</p>
+               <p class="grid-label">weight</p>
+               <p class="grid-label">reps</p>
                ${this._generateMarkupSet(currentExercise, currentSet)}
                ${this._generateMarkupSet(currentExercise, currentSet + 1)}
                ${this._generateMarkupSet(currentExercise, currentSet + 2)}
@@ -148,7 +148,6 @@ class TrackerView extends View {
                type="number"
                name="${planDay[i].id}_weight_${currentSet}"
                id="${planDay[i].id}_weight_${currentSet}"
-               step="5"
                value="${workoutData?.[`${planDay[i].id}_weight_${currentSet}`] || 5}"
             />
          </div>

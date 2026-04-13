@@ -157,8 +157,10 @@ button {
 
 .tracker__btns-exercise-options {
    position: relative;
-   text-align: right;
-   height: 2.4rem;
+   height: 4rem;
+   display: flex;
+   justify-content: end;
+   gap: 0.8rem;
 }
 
 .tracker__exercise {
@@ -170,7 +172,9 @@ button {
 .tracker__btn--exercise-menu {
    background-color: var(--color-primary);
    color: #fff;
-   padding: 0.4rem 0.8rem;
+   font-size: 1.6rem;
+   font-weight: 600;
+   padding: 0.8rem 1.6rem;
 }
 
 .variations-menu {
@@ -195,7 +199,8 @@ button {
 }
 
 .tracker__exercise-title {
-   font-size: 1.2rem;
+   font-size: 2rem;
+   line-height: 1.5;
 }
 
 .tracker__exercise-details {
@@ -204,11 +209,16 @@ button {
    gap: 0.8rem;
 }
 
+.grid-label {
+   font-size: 1.4rem;
+}
+
 .tracker__exercise input,
 .tracker__notes {
    width: 100%;
    background-color: var(--color-lightgrey);
    border: none;
+   font-size: 2rem;
    padding: 0.2rem 0.4rem;
 }
 
@@ -234,7 +244,9 @@ button {
    background-color: var(--color-primary);
    color: #fff;
    width: 100%;
-   padding: 0.4rem 0;
+   font-size: 1.6rem;
+   font-weight: 600;
+   padding: 0.8rem 1.6rem;
    margin: 0.8rem 0;
 }
 
