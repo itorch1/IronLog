@@ -1,9 +1,11 @@
 import * as model from './model';
 import pickDayView from './views/pickDayView';
+import trackerView from './views/trackerView';
+import navView from './views/navView';
 
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
-import trackerView from './views/trackerView';
+import calendarView from './views/calendarView';
 
 const controlPickDay = function (pickedDay) {
    model.state.formState.pickedDay = pickedDay;
@@ -87,7 +89,7 @@ const controlSubmit = function (formData) {
    console.log(sessionData);
    model.saveSession(sessionData);
 
-   trackerView.renderMessage();
+   trackerView.renderMessage(`Great job! 💪<br/> Workout time: ${workoutDuration}`);
 };
 
 const setupExercise = function (increaseSet = true) {
@@ -97,8 +99,21 @@ const setupExercise = function (increaseSet = true) {
    if (increaseSet) model.state.formState.currentSet += 2;
 };
 
+const controlNav = function (view) {
+   if (view === 'log') pickDayView.render(true);
+   if (view === 'calendar') {
+      calendarView.render(true);
+      calendarView.setupCalendar().render();
+   }
+   // if (view === 'exercises')
+
+   navView.toggleMenu();
+};
+
 const init = function () {
    pickDayView.addHandlerClick(controlPickDay, 'plan-day-picker__list-button', 'day');
+
+   navView.addHandlerClick(controlNav, 'nav__list-link', 'view');
 
    trackerView.addHandlerClick(controlSuperset, 'tracker__btn--superset');
    trackerView.addHandlerClick(controlAddSet, 'tracker__btn--next-set');

@@ -21,14 +21,15 @@
             <div class="logo">
                <img src="src/img/logo.png" alt="IronLog logo" class="logo__img" />
             </div>
-            <button class="nav__btn">
+            <button class="nav__btn" aria-label="toggle menu">
                <ion-icon name="menu"></ion-icon>
+               <ion-icon class="no-display" name="close"></ion-icon>
             </button>
-            <!-- <ul class="nav__list">
-               <li><a class="nav__list-link" href="#">Log</a></li>
-               <li><a class="nav__list-link" href="#">Calendar</a></li>
-               <li><a class="nav__list-link" href="#">Exercises</a></li>
-            </ul> -->
+            <ul class="nav__list">
+               <li><a class="nav__list-link" data-view="log" href="#">Log</a></li>
+               <li><a class="nav__list-link" data-view="calendar" href="#">Calendar</a></li>
+               <li><a class="nav__list-link" data-view="exercises" href="#">Exercises</a></li>
+            </ul>
          </nav>
       </header>
 
@@ -76,6 +77,11 @@
                   </button>
                   <button type="button" class="tracker__btn--next-exercise">Next exercise</button>
                </form>
+            </section> -->
+
+            <!-- <section class="section-calendar">
+               <h1>Calendar</h1>
+               <div class="calendar"></div>
             </section> -->
          </div>
       </main>
