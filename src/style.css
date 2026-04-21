@@ -179,7 +179,7 @@ button {
 
 .variations-menu {
    position: absolute;
-   top: 3.2rem;
+   top: 4.8rem;
    right: 0;
    display: none;
 }
@@ -196,6 +196,9 @@ button {
 
 .variations-option {
    color: #fff;
+   font-size: 1.6rem;
+   font-weight: 600;
+   padding: 0.8rem 0;
 }
 
 .tracker__exercise-title {
@@ -253,6 +256,42 @@ button {
 .tracker__notes {
    height: 8rem;
    margin-top: 1.6rem;
+}
+
+/**************************/
+/* Workout details */
+/**************************/
+.workout-details {
+   padding-top: 4.8rem;
+}
+
+.workout-details__title {
+   font-size: 3rem;
+   margin-bottom: 2.4rem;
+}
+
+.workout-details__type {
+   font-size: 2.4rem;
+   margin-bottom: 1.2rem;
+}
+
+.workout-details__time {
+   font-size: 1.8rem;
+   margin-bottom: 1.2rem;
+}
+
+.workout-details__table {
+   border-collapse: collapse;
+}
+
+.workout-details__table th,
+.workout-details__table td {
+   padding: 0.5rem 1rem;
+}
+
+.workout-details__table th {
+   background-color: var(--color-primary);
+   text-align: left;
 }
 
 /**************************/

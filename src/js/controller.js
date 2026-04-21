@@ -2,6 +2,7 @@ import * as model from './model';
 import pickDayView from './views/pickDayView';
 import trackerView from './views/trackerView';
 import navView from './views/navView';
+import workoutDetailsView from './views/workoutDetailsView';
 
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
@@ -103,11 +104,31 @@ const controlNav = function (view) {
    if (view === 'log') pickDayView.render(true);
    if (view === 'calendar') {
       calendarView.render(true);
-      calendarView.setupCalendar().render();
+      const workoutEvents = model.state.workouts.map(workout => {
+         return {
+            title: workout.type,
+            start: workout.date,
+         };
+      });
+      calendarView.setupCalendar(workoutEvents);
+      calendarView.addHandlerEventClick(controlLoadWorkout);
    }
    // if (view === 'exercises')
 
    navView.toggleMenu();
+};
+
+const controlLoadWorkout = function (workoutDate) {
+   // Find the specific workout in the state
+   const calendarTime = workoutDate.getTime();
+   const workout = model.state.workouts.find(w => {
+      const dataTime = new Date(w.date).getTime();
+      return Math.floor(dataTime / 1000) === Math.floor(calendarTime / 1000);
+   });
+   if (!workout) return;
+
+   // Render workout details
+   workoutDetailsView.render(workout)
 };
 
 const init = function () {

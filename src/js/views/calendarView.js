@@ -6,11 +6,12 @@ import { View } from './view';
 
 class CalendarView extends View {
    _parentElement = document.querySelector('.container');
+   _calendar;
 
-   setupCalendar() {
+   setupCalendar(eventsData) {
       const calendarEl = document.querySelector('.calendar');
 
-      return new Calendar(calendarEl, {
+      this._calendar = new Calendar(calendarEl, {
          plugins: [dayGridPlugin, interactionPlugin],
          initialView: 'dayGridMonth',
 
@@ -20,12 +21,17 @@ class CalendarView extends View {
             right: 'dayGridMonth',
          },
 
-         dateClick: function (info) {
-            console.log('Clicked date: ' + info.dateStr);
-            loadAppData(info.dateStr);
-         },
+         events: eventsData,
+
+         eventClick: function (info) {
+            // info.event.extendedProps contains any extra data you passed
+            const workoutDate = info.event.start;
+            // This handler will be defined in the controller
+            this._handlerEventClick(workoutDate);
+         }.bind(this),
       });
 
+      this._calendar.render();
    }
 
    _generateMarkup() {
@@ -35,6 +41,10 @@ class CalendarView extends View {
             <div class="calendar"></div>
         </section>
         `;
+   }
+
+   addHandlerEventClick(handler) {
+      this._handlerEventClick = handler;
    }
 }
 
