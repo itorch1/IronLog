@@ -104,10 +104,17 @@ const controlNav = function (view) {
    if (view === 'log') pickDayView.render(true);
    if (view === 'calendar') {
       calendarView.render(true);
+
+      const colorMatcher = {
+         PP1: '#e03131',
+         L: '#0c8599',
+         PP2: '#f08c00',
+      };
       const workoutEvents = model.state.workouts.map(workout => {
          return {
             title: workout.type,
             start: workout.date,
+            backgroundColor: colorMatcher[workout.type],
          };
       });
       calendarView.setupCalendar(workoutEvents);
@@ -128,7 +135,7 @@ const controlLoadWorkout = function (workoutDate) {
    if (!workout) return;
 
    // Render workout details
-   workoutDetailsView.render(workout)
+   workoutDetailsView.render(workout);
 };
 
 const init = function () {
