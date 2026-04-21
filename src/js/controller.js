@@ -3,10 +3,12 @@ import pickDayView from './views/pickDayView';
 import trackerView from './views/trackerView';
 import navView from './views/navView';
 import workoutDetailsView from './views/workoutDetailsView';
+import calendarView from './views/calendarView';
+import exercisesView from './views/exercisesView';
+import exerciseDetailsView from './views/exerciseDetailsView';
 
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
-import calendarView from './views/calendarView';
 
 const controlPickDay = function (pickedDay) {
    model.state.formState.pickedDay = pickedDay;
@@ -86,6 +88,7 @@ const controlSubmit = function (formData) {
       date,
       workoutDuration,
       type: model.state.formState.pickedDay,
+      notes: model.state.formState.notes,
    };
    console.log(sessionData);
    model.saveSession(sessionData);
@@ -120,7 +123,7 @@ const controlNav = function (view) {
       calendarView.setupCalendar(workoutEvents);
       calendarView.addHandlerEventClick(controlLoadWorkout);
    }
-   // if (view === 'exercises')
+   if (view === 'exercises') exercisesView.render(model.state.plans);
 
    navView.toggleMenu();
 };
@@ -138,6 +141,29 @@ const controlLoadWorkout = function (workoutDate) {
    workoutDetailsView.render(workout);
 };
 
+const controlRenderExercise = function (exerciseName) {
+   // Get date and all sessions of the selected exercise
+   const exerciseData = model.state.workouts.map(entry => {
+      const data = entry.workoutData;
+
+      // 1. Filter the keys that belong to the selected exercise
+      const exerciseDetails = Object.keys(data)
+         .filter(key => key.startsWith(exerciseName))
+         .reduce((obj, key) => {
+            obj[key] = data[key];
+            return obj;
+         }, {});
+
+      // 2. Return the new structure
+      return {
+         date: entry.date,
+         exerciseData: exerciseDetails,
+      };
+   }).filter(entry=>Object.keys(entry.exerciseData).length > 0);
+
+   exerciseDetailsView.render({exerciseData, exerciseName});
+};
+
 const init = function () {
    pickDayView.addHandlerClick(controlPickDay, 'plan-day-picker__list-button', 'day');
 
@@ -149,6 +175,8 @@ const init = function () {
    trackerView.addHandlerClick(controlSwap, 'variations-option', 'title');
 
    trackerView.addHandlerSubmit(controlSubmit);
+
+   exercisesView.addHandlerClick(controlRenderExercise, 'exercises__link', 'exercise');
 };
 
 init();

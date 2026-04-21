@@ -4,7 +4,7 @@ class WorkoutDetailsView extends View {
    _parentElement = document.querySelector('.container');
 
    _generateMarkup() {
-      const { date: dateISO, type, workoutDuration, startTime, finishTime, workoutData } = this._data;
+      const { date: dateISO, type, workoutDuration, startTime, finishTime, workoutData, notes } = this._data;
       const date = new Date(dateISO);
       const maxNumSets = Object.keys(workoutData).reduce(
          (acc, entry) => (+entry.slice(-1) > acc ? +entry.slice(-1) : acc),
@@ -75,6 +75,7 @@ class WorkoutDetailsView extends View {
                        .join('')}
                 </tbody>
             </table>
+            ${notes ? `<p class="notes">${notes}</p>` : ''}
         </section>
         `;
    }

@@ -1,4 +1,5 @@
 import { View } from './view';
+import { convertToTitle } from '../helpers';
 
 class TrackerView extends View {
    _parentElement = document.querySelector('.container');
@@ -67,7 +68,7 @@ class TrackerView extends View {
             ${variations
                .map(
                   variation => `
-                  <li><button class="variations-option" data-title="${variation}" type="button">${this._convertToTitle(variation)}</button></li>
+                  <li><button class="variations-option" data-title="${variation}" type="button">${convertToTitle(variation)}</button></li>
                `,
                )
                .join('')}
@@ -84,12 +85,6 @@ class TrackerView extends View {
       `;
       form.insertAdjacentHTML('beforeend', markup);
    }
-
-   _convertToTitle = id =>
-      id
-         .split('_')
-         .map(word => `${word[0].toUpperCase()}${word.slice(1)}`)
-         .join(' ');
 
    _renderVariationsMenu() {}
 
@@ -124,7 +119,7 @@ class TrackerView extends View {
 
       return `
          <div class="tracker__exercise">
-            <p class="tracker__exercise-title">${this._convertToTitle(this._planDay[currentExercise].id)}</p>
+            <p class="tracker__exercise-title">${convertToTitle(this._planDay[currentExercise].id)}</p>
             <div class="tracker__exercise-details">
                <p class="grid-label">weight</p>
                <p class="grid-label">reps</p>
